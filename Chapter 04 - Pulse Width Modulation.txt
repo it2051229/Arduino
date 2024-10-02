@@ -1,0 +1,34 @@
+/**
+ * A special function that runs only once, at the beginning of your program. It's used to
+ * initialize the Arduino board, configure pins, and set up any ncessary hardware or software
+ * settings.
+ */
+void setup() {
+  // Tell Arduino that we output current at pinhole number 11
+  pinMode(11, OUTPUT);
+}
+
+/**
+ * Another special function that runs continously, repeatedly executing the code within it.
+ */
+void loop() {
+  // Slowly increase the amount of current to pinhole number 11
+  // This should brighten up our LED
+  for(int brightness = 0; brightness <= 255; brightness += 5) {
+	analogWrite(11, brightness);
+	
+	// Pause for 30 milliseconds before we adjust the brightness
+	delay(30);
+  }
+
+  // Slowly decrease the amount of current to pinhole number 11
+  // This should dim our LED
+  for(int brightness = 255; brightness >= 0; brightness -= 5) {
+	analogWrite(11, brightness);
+	
+	// Pause for 30 milliseconds before we adjust the brightness
+	delay(30);
+  }
+
+	// Then we repeat all over again...
+}
