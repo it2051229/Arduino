@@ -1,0 +1,23 @@
+// Initialize the settings of our Arduino board.
+void setup() {
+	// Tell Arduino to get ready to exchange messages with the Serial Monitor
+	// at a data rate of 9600 bits per second.
+	Serial.begin(9600);
+}
+
+// Display text to the Serial Monitor
+void loop() {
+	// Is there user input? If yes then read and display it
+	if(Serial.available()) {
+		int incomingByte = Serial.read();
+		
+		if(incomingByte == 10) {
+			// If it's the enter key then print a new line.
+			Serial.println();
+		} else {
+			// If it's a letter then cast the byte to a letter and display it.
+			char letter = (char) incomingByte;
+			Serial.print(letter);
+		}
+	}
+}
