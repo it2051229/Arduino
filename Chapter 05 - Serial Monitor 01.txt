@@ -1,11 +1,11 @@
 // Initialize the settings of our Arduino board.
 void setup() {
-	// Tell Arduino to get ready to exchange messages with the Serial Monitor
-	// at a data rate of 9600 bits per second.
-	Serial.begin(9600);
+  // Tell Arduino to get ready to exchange messages with the Serial Monitor
+  // at a data rate of 9600 bits per second.
+  Serial.begin(9600);
 }
 
 // Display text to the Serial Monitor
 void loop() {
-	Serial.println("Hello World!");
+  Serial.println("Hello World!");
 }
