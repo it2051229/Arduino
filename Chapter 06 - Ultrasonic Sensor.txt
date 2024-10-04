@@ -7,6 +7,7 @@ void setup() {
   pinMode(trigPin, OUTPUT);
   
   // Tell Arduino that we're using pin number 10 for the echo/receiver (Receives sound).
+  pinMode(echoPin, INPUT);
   
   // Tell Arduino to get ready to exchange messages with the Serial Monitor
   // at a data rate of 9600 bits per second.
