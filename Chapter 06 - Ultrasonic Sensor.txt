@@ -3,40 +3,40 @@ const int echoPin = 10;
 
 // Initialize the settings of our Arduino board.
 void setup() {
-	// Tell Arduino that we're using pin number 9 for the trigger/transmitter (Transmits sound).
-	pinMode(trigPin, OUTPUT);
-	
-	// Tell Arduino that we're using pin number 10 for the echo/receiver (Receives sound).
-	
-	// Tell Arduino to get ready to exchange messages with the Serial Monitor
-	// at a data rate of 9600 bits per second.
-	Serial.begin(9600);
+  // Tell Arduino that we're using pin number 9 for the trigger/transmitter (Transmits sound).
+  pinMode(trigPin, OUTPUT);
+  
+  // Tell Arduino that we're using pin number 10 for the echo/receiver (Receives sound).
+  
+  // Tell Arduino to get ready to exchange messages with the Serial Monitor
+  // at a data rate of 9600 bits per second.
+  Serial.begin(9600);
 }
 
 // Code to repeatedly transmit and receive sound waves then we calculate and display the distance.
 void loop() {
-	// Indicate no trigger signal.
-	digitalWrite(trigPin, LOW);
-	delayMicroseconds(2);
-	
-	// Send a short pulse that tells the sensor to send out sound waves.
-	digitalWrite(trigPin, HIGH);
-	delayMicroseconds(10);
-	
-	// Indicate the end of sending pulse.
-	digitalWrite(trigPin, LOW);
-	
-	// Receive how long was the travel time of the sound.
-	float duration = pulseIn(echoPin, HIGH);
-	
-	// Compute the distance. Result is divided by 2 because we had to
-	// factor in the travel time of sound going back to the sensor.
-	float distance = (duration * 0.0343) / 2;
-	
-	// Display the result...
-	Serial.print("Distance (cm): ");
-	Serial.println(distance);
-	
-	// Pause for a 100 milliseconds before we do the above process again...
-	delay(100);
+  // Indicate no trigger signal.
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  
+  // Send a short pulse that tells the sensor to send out sound waves.
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  
+  // Indicate the end of sending pulse.
+  digitalWrite(trigPin, LOW);
+  
+  // Receive how long was the travel time of the sound.
+  float duration = pulseIn(echoPin, HIGH);
+  
+  // Compute the distance. Result is divided by 2 because we had to
+  // factor in the travel time of sound going back to the sensor.
+  float distance = (duration * 0.0343) / 2;
+  
+  // Display the result...
+  Serial.print("Distance (cm): ");
+  Serial.println(distance);
+  
+  // Pause for a 100 milliseconds before we do the above process again...
+  delay(100);
 }
