@@ -1,0 +1,30 @@
+#include <LiquidCrystal.h>
+
+// These are the pinhole numbers where we connected the LCD pins.
+const int rsPin = 12;
+const int enPin = 11;
+const int d4Pin = 5;
+const int d5Pin = 4;
+const int d6Pin = 3;
+const int d7Pin = 2;
+
+// Initialize an LCD object and the pinhole numbers used in the Arduino board.
+LiquidCrystal lcd(rsPin, enPin, d4Pin, d5Pin, d6Pin, d7Pin);
+
+// Write "Hello World"
+void setup() {
+  // Tell that we're using a 16 (column) x 2 (rows) kind of LCD.
+  lcd.begin(16, 2);
+    
+  // Display text at starting column 0 and row 0 of the LCD
+  lcd.print("Hello World!");  
+}
+
+// Display the time since the arduino board has been powered up
+void loop() {
+  // Set the curosr to column 0 and row 1 of the LCD, that's where we write the next text.
+  lcd.setCursor(0, 1);
+  
+  // Get the current time in milliseconds, convert it to seconds, then display it.
+  lcd.print(millis() / 1000);
+}
