@@ -1,0 +1,28 @@
+// Use the LiquidCrystal i2C library by Frank De Brabander
+#include <LiquidCrystal_I2C.h>
+
+// Initialize an LCD object, we tell arduino that the LCD is located
+// at address 0x27 that the LCD has 16 (columns) x 2 (rows) display.
+LiquidCrystal lcd(rsPin, enPin, d4Pin, d5Pin, d6Pin, d7Pin);
+
+// Initialize the LCD module and display text on the first row
+void setup() {
+  lcd.init();
+  
+  // Tell arduino to turn on the backlight of the LCD
+  lcd.backlight();
+  
+  lcd.setCursor(0, 0);
+  lcd.print("Hello World!");
+}
+
+// Display the time since the arduino board has been powered up
+void loop() {
+  // Set the curosr to column 0 and row 1 of the LCD.
+  // That's where we write the next text.
+  lcd.setCursor(0, 1);
+  
+  // Get the current time in milliseconds, convert it to seconds, 
+  // then display it.
+  lcd.print(millis() / 1000);
+}
