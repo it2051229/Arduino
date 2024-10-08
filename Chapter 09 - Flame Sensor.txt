@@ -1,0 +1,36 @@
+// This is the pinhole number used by the 'D0' pin of the flame sensor.
+const int digitalReadPin = 2;
+
+// Initialize the settings of our Arduino board
+void setup() {
+  // Tell Arduino to get ready to exchange messages with the Serial Monitor
+  // at a data rate of 9600 bits per second.
+  Serial.begin(9600);
+}
+
+// Code to repeatedly get data from the flame sensor.
+void loop() {
+  // Read an analog value, this returns a value between 0 and 1023
+  // A value of 1023 means no flame detected but it
+  // decreases if the flame is getting near the sensor.
+  // We will use the 'A0' as the parameter value because that's where
+  // we connected the 'A0' pin of the Flame Sensor to the Arduino board.
+  int analogValue = analogRead(A0);
+  
+  // Read a digital value, this returns a value of 1 or 0
+  // A value of 0 means no flame detected
+  // A value of 1 means a flame is detected
+  int digitalValue = digitalRead(digitalReadPin);
+  
+  // Print out the analog value
+  Serial.print("Analog Value: ");
+  Serial.print(analogValue);
+  
+  Serial.print("|");
+  
+  Serial.print("Digital Value: ");
+  Serial.println(digitalValue);
+  
+  // Pause for 100 milliseconds and repeat above process...
+  delay(100);
+}
