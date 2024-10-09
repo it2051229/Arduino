@@ -20,9 +20,9 @@ void setup() {
   lcd.print("Hello World!");  
 }
 
-// Display the time since the arduino board has been powered up
+// Display the time since the Arduino board has been powered up
 void loop() {
-  // Set the curosr to column 0 and row 1 of the LCD, that's where we write the next text.
+  // Set the cursor to column 0 and row 1 of the LCD, that's where we write the next text.
   lcd.setCursor(0, 1);
   
   // Get the current time in milliseconds, convert it to seconds, then display it.
