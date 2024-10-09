@@ -1,15 +1,15 @@
 /**
  * A special function that runs only once, at the beginning of your program. It's used to
- * initialize the Arduino board, configure pins, and set up any ncessary hardware or software
+ * initialize the Arduino board, configure pins, and set up any necessary hardware or software
  * settings.
  */
 void setup() {
-  // Tell arduino that the built-in LED will be used for output.
+  // Tell Arduino that the built-in LED will be used for output.
   pinMode(LED_BUILTIN, OUTPUT);
 }
 
 /**
- * Another special function that runs continously, repeatedly executing the code within it.
+ * Another special function that runs continuously, repeatedly executing the code within it.
  */
 void loop() {
   // Turn on the built-in LED.
