@@ -1,6 +1,6 @@
 /**
  * A special function that runs only once, at the beginning of your program. It's used to
- * initialize the Arduino board, configure pins, and set up any ncessary hardware or software
+ * initialize the Arduino board, configure pins, and set up any necessary hardware or software
  * settings.
  */
 void setup() {
@@ -9,7 +9,7 @@ void setup() {
 }
 
 /**
- * Another special function that runs continously, repeatedly executing the code within it.
+ * Another special function that runs continuously, repeatedly executing the code within it.
  */
 void loop() {
   // Slowly increase the amount of current to pinhole number 11
