@@ -3,7 +3,7 @@
 
 // Initialize an LCD object, we tell Arduino that the LCD is located
 // at address 0x27 that the LCD has 16 (columns) x 2 (rows) display.
-LiquidCrystal lcd(0x27, 16, 2);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // Initialize the LCD module and display text on the first row
 void setup() {
