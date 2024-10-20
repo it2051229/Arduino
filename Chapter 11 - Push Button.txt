@@ -1,0 +1,21 @@
+// The pinhole number we used to connect the push button
+const int buttonPin = 2;
+
+// Initilaize the arduino board
+void setup() {
+  // Tell arduino that pinhole number 2 is where we set the state of the button
+  pinMode(buttonPin, INPUT);
+
+  // Tell Arduino to get ready to exchange messages with the Serial Monitor
+  // at a data rate of 9600 bits per second.
+  Serial.begin(9600);
+}
+
+// Repeatedly check and print the state of the button 
+void loop() {
+  int buttonState = digitalRead(buttonPin);
+  Serial.print("Button State: ");
+  Serial.println(buttonState);
+
+  delay(10);
+}
