@@ -1,0 +1,31 @@
+// The library we need to work with a servo
+#include <Servo.h>
+
+// Initialize a servo object
+Servo servo;
+
+// Initialize the arduino board
+void setup() {
+  // Tell the servo that we will use pinhole number 8 of Arduino
+  // where to send at which angle it should rotate.
+  servo.attach(8);
+
+  // Let the servo rotate to angle 0 degrees
+  servo.write(0);
+}
+
+// Adjust the angle of the servo
+void loop() {
+
+  // Turn the servo from 0 to 180 degrees
+  for(int angle = 0; angle < 180; angle++) {
+    servo.write(angle);
+    delay(15);
+  }
+
+  // Turn the servo from 180 to 0 degrees
+  for(int angle = 180; angle > 0; angle--) {
+    servo.write(angle);
+    delay(15);
+  }
+}
