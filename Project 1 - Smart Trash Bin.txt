@@ -1,0 +1,66 @@
+// The library we need to work with the servo
+#include <Servo.h>
+
+// Initialize the pinhole numbers where we attached the ultrasonic sensor
+const int sensorTrigPin = 9;
+const int sensorEchoPin = 10;
+
+// Initialize the pinhole number where we attached the servo
+const int servoPin = 8;
+
+// A variable to keep track what was the last angle we rotated the servo
+int lastAngle = 0;
+
+// Initialize a servo object
+Servo servo;
+
+// Initialize the sensor and servo settings
+void setup() {
+  // Tell Arduino that the ultrasonic seensor will use pin number 9 to transmit sound
+  pinMode(sensorTrigPin, OUTPUT);
+
+  // Tell Arduino that the ultrasonic sensor will use pin number 10 to receive sound
+  pinMode(sensorEchoPin, INPUT);
+
+  // Tell Arduino that the servo is attached to pin number 8
+  servo.attach(servoPin);
+
+  // Reset the servo's hand by rotating it to 0 degrees
+  servo.write(lastAngle);
+}
+
+// Code to repeatedly check if there's an object near the ultrasonic sensor
+// then subsequently rotates the servo's hand to a specified angle
+void loop() {
+  // Indicate no trigger signal for the ultrasonic sensor
+  digitalWrite(sensorTrigPin, LOW);
+  delayMicroseconds(2);
+
+  // Let the ultrasonic sensor send a short pulse (sound wave)
+  digitalWrite(sensorTrigPin, HIGH);
+  delayMicroseconds(10);
+
+  // Let the ultrasonic sensor stop sending pulse
+  digitalWrite(sensorTrigPin, LOW);
+
+  // Check if there's an object near the sensor by calculating
+  // the distance (in cm) from the object
+  float duration = pulseIn(sensorEchoPin, HIGH);
+  float distance = (duration * 0.0343) / 2;
+
+  // A distance of 5 cm and below means an object is near the sensor
+  if(distance <= 5) {
+    // If there's an object near the sensor, rotate the servo's hand
+    // to 90 degrees which should push the trans bin's lid open
+    lastAngle = 90;
+    servo.write(lastAngle);
+    delay(1000);
+  } else if(lastAngle != 30) {
+    // If there's no object near the sensor, rotate the servo's hand
+    // to 30 degrees which should close the trash bin's lid
+    lastAngle = 30;
+    servo.write(lastAngle);
+  }
+
+  delay(1000);
+}
