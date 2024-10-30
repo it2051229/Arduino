@@ -1,0 +1,105 @@
+// Use the LiquidCrystal i2C library by Frank De Brabander
+#include <LiquidCrystal_I2C.h>
+#include <NewPing.h>
+
+// Initialize an LCD object, we tell Arduino that the LCD is located
+// at address 0x27 that the LCD has 16 (columns) x 2 (rows) display.
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// Holds the max distance that indicates that the ultrasonic
+// sensor is hitting the other side of the door.
+int maxDistance = 0;
+
+// Holds the total count of foot traffic
+int footTrafficCount = 0;
+
+// Initialize the pinhole numbers where we attached the ultrasonic sensor
+const int sensorTrigPin = 9;
+const int sensorEchoPin = 10;
+
+// Initialize a sonar object which will control our ultrasonic sensor
+NewPing sonar(sensorTrigPin, sensorEchoPin);
+
+// Display the elapsed time since the device has been turned on
+void displayTime() {
+  // How many seconds have elapsed
+  int seconds = millis() / 1000;
+
+  // Convert some of those seconds to minutes
+  int minutes = seconds / 60;
+  seconds %= 60;
+
+  // convert some of those minutes to hours
+  int hours = minutes / 60;
+  hours %= 60;
+
+  // Display the time
+  lcd.setCursor(0, 1);
+  
+  if(hours < 10)
+    lcd.print("0");
+  
+  lcd.print(hours);
+  lcd.print("H : ");
+
+  if(minutes < 10)
+    lcd.print("0");
+  
+  lcd.print(minutes);
+  lcd.print("M : ");
+
+  if(seconds < 10)
+    lcd.print("0");
+
+  lcd.print(seconds);
+  lcd.print("S");
+}
+
+// Retrieve an average distance based from 10 readings from the ultrasonic sensor
+// This will take at least 0.5s to complete...
+int getDistance() {
+  int totalDistance = 0;
+
+  for(int i = 0; i < 10; i++) {
+    totalDistance += sonar.ping_cm();
+    delay(50);
+  }
+
+  return totalDistance / 10;
+}
+
+// Initialize the LCD module and calibrate the ultrasonic sensor.
+void setup() {
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("Calibrating...");
+
+  // Calculate a maximum distance, get only 80% of
+  // the calculated distance to make the sensor reading less sensitive
+  maxDistance = getDistance() * 0.8;
+  delay(1000);
+
+  lcd.clear();
+}
+
+// Repeatedly check if someone passed by and count it as foot traffic.
+void loop() {
+  displayTime();
+
+  // Read a distance and check if there's a person in front of the sensor.
+  int distance = getDistance();
+
+  if(distance < maxDistance) {
+      // Update the foot traffic count if someone
+      // passed through the sensor.
+      footTrafficCount++;
+
+      lcd.setCursor(0, 0);
+      lcd.print("Count: ");
+      lcd.print(footTrafficCount);
+      
+      // Wait for the person to get out of the sensor.
+      while(getDistance() < maxDistance) {}
+  }
+}
