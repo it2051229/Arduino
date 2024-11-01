@@ -1,0 +1,70 @@
+// Initialize the pins used by the seven segment display
+const int aPin = 2;
+const int bPin = 3;
+const int cPin = 4;
+const int dPin = 5;
+const int ePin = 6;
+const int fPin = 7;
+const int gPin = 8;
+const int dpPin = 9;
+
+// Set which LED to turn on for each letter from aPin to gPin
+const int charH[] = { LOW, LOW, HIGH, LOW, HIGH, HIGH, HIGH };
+const int charE[] = { HIGH, LOW, LOW, HIGH, HIGH, HIGH, HIGH};
+const int charL[] = { LOW, LOW, LOW, HIGH, HIGH, HIGH, LOW };
+const int charO[] = { LOW, LOW, HIGH, HIGH, HIGH, LOW, HIGH };
+
+// Turn off all aPin to dpPin
+void clear() {
+  for(int pin = aPin; pin <= dpPin; pin++)
+    digitalWrite(pin, LOW);
+}
+
+// Display a character to the seven segment display
+void displayCharacter(int character[]) {
+  int i = 0;
+
+  for(int pin = aPin; pin <= gPin; pin++) {
+    digitalWrite(pin, character[i]);
+    i++;
+  }
+}
+
+// Initialize the aPin to dpPin as output pins
+void setup() {
+  for(int pin = aPin; pin <= dpPin; pin++)
+    pinMode(pin, OUTPUT);
+}
+
+// Repeatedly output characters
+void loop() {
+  clear();
+  delay(1000);
+  displayCharacter(charH);
+  delay(1000);
+
+  clear();
+  delay(1000);
+  displayCharacter(charE);
+  delay(1000);
+
+  clear();
+  delay(1000);
+  displayCharacter(charL);
+  delay(1000);
+
+  clear();
+  delay(1000);
+  displayCharacter(charL);
+  delay(1000);
+
+  clear();
+  delay(1000);
+  displayCharacter(charO);
+  delay(1000);
+
+  clear();
+  delay(1000);
+  digitalWrite(dpPin, HIGH);
+  delay(1000);
+}
