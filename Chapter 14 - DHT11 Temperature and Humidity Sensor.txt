@@ -1,0 +1,39 @@
+// Include the DHT library
+#include <dht.h>
+
+// Set the pinhole number we used to connect to the sensor
+const int outPin = 2;
+
+// Initialize a DHT object
+dht sensor;
+
+// Initialize the Arduino board
+void setup() {
+
+  // Tell Arduino to get ready to exchange messages with the Serial Monitor
+  // at a data rate of 9600 bits per second
+  Serial.begin(9600);
+}
+
+// Code to repeatedly read temperature and humidity data then
+// display it to the Serial Monitor
+void loop() {
+  // Read a data from the sensor
+  sensor.read11(outPin);
+
+  // Get the temperature and humidity that was logged
+  float temperature = sensor.temperature;
+  float humidity = sensor.humidity;
+
+  // Print out the temperature and humidity
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.print(" Degree Celsius | ");
+
+  Serial.print("Humidity: ");
+  Serial.print(humidity);
+  Serial.println(" %");
+
+  // Pause for 2 seconds before we do the above process again...
+  delay(2000);
+}
