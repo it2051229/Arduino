@@ -1,0 +1,20 @@
+// Initialize the settings of our Arduino board
+void setup() {
+  // Tell Arduino to get ready to exchange messages with the Serial Monitor
+  // at a data rate of 9600 bits per second.
+  Serial.begin(9600);
+}
+
+// Code to repeatedly get data from the water sensor and display 
+// it to the Serial Monitor
+void loop() {
+  // Read data from the water sensor which we attached
+  // to Arduino's pinhole A0
+  int analogValue = analogRead(A0);
+
+  // Display the data.
+  Serial.println(analogValue);
+
+  // Pause for a second before doing the above process again...
+  delay(1000);
+}
