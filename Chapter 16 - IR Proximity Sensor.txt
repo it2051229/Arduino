@@ -1,0 +1,27 @@
+const int outPin = 2;
+
+// Initialize the settings of our Arduino board.
+void setup() {
+  // Tell Arduino to get ready to exchange messages with the Serial Monitor
+  // at a data rate of 9600 bits per second.
+  Serial.begin(9600);
+
+  // We will read input data from pin number 2 where our sensor is connected
+  // to the arduino board.
+  pinMode(outPin, INPUT);
+}
+
+// Code to repeatedly get data from the sensor and display it.
+void loop() {
+  int data = digitalRead(outPin);
+  Serial.print(data);
+  Serial.print(" : ");
+
+  if(data == 0)
+    Serial.println("Object detected");
+  else
+    Serial.println("No object detected");
+
+  // Pause for 100 milliseconds and repeat the above process...
+  delay(100);
+}
