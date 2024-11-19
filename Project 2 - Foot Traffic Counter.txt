@@ -31,7 +31,7 @@ void displayTime() {
 
   // convert some of those minutes to hours
   int hours = minutes / 60;
-  hours %= 60;
+  minutes %= 60;
 
   // Display the time
   lcd.setCursor(0, 1);
