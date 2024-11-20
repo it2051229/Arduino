@@ -1,0 +1,78 @@
+// Use the LiquidCrystal i2C library by Frank De Brabander
+#include <LiquidCrystal_I2C.h>
+
+// Initialize an LCD object, we tell Arduino that the LCD is located
+// at address 0x27 that the LCD has 16 (columns) x 2 (rows) display.
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+// Holds the total count of foot traffic
+int footTrafficCount = 0;
+
+// Initialize the pinhole numbers where we attached the IR proximity sensor.
+const int sensorOutPin = 2;
+
+// Display the elapsed time since the device has been turned on
+void displayTime() {
+  // How many seconds have elapsed
+  int seconds = millis() / 1000;
+
+  // Convert some of those seconds to minutes
+  int minutes = seconds / 60;
+  seconds %= 60;
+
+  // convert some of those minutes to hours
+  int hours = minutes / 60;
+  minutes %= 60;
+
+  // Display the time
+  lcd.setCursor(0, 1);
+  
+  if(hours < 10)
+    lcd.print("0");
+  
+  lcd.print(hours);
+  lcd.print("H : ");
+
+  if(minutes < 10)
+    lcd.print("0");
+  
+  lcd.print(minutes);
+  lcd.print("M : ");
+
+  if(seconds < 10)
+    lcd.print("0");
+
+  lcd.print(seconds);
+  lcd.print("S");
+}
+
+// Initialize the LCD module.
+void setup() {
+  lcd.init();
+  lcd.backlight();
+}
+
+// Repeatedly check if someone passed by and count it as foot traffic.
+void loop() {
+  displayTime();
+
+  int data = digitalRead(sensorOutPin);
+
+  if(data == 0) {
+      // Update the foot traffic count if someone
+      // passed through the sensor.
+      footTrafficCount++;
+
+      lcd.setCursor(0, 0);
+      lcd.print("Count: ");
+      lcd.print(footTrafficCount);
+      
+      // Wait for the person to get out of the sensor.
+      do {
+        delay(500);
+        data = digitalRead(sensorOutPin);
+      } while(data == 0);
+  }
+
+  delay(100);
+}
