@@ -1,0 +1,43 @@
+// Libraries required to make the OLED module work
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+// Some constants that defines the size of our OLED screen
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+
+#define OLED_RESET     -1   // Reset pin # (or -1 if sharing Arduino reset pin)
+#define SCREEN_ADDRESS 0x3C // The address of the OLED module we got from the i2c_scanner 
+
+// Create an oled object 
+Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+void setup() {
+  Serial.begin(9600);
+
+  // Some code to initialize the OLED display, if it fails then we should
+  // see the error in the Serial Monitor
+  if(!oled.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;); // Don't proceed, loop forever
+  }
+
+  oled.clearDisplay();                     // Clear the screen
+  oled.drawPixel(10, 30, SSD1306_WHITE);   // Turn on a pixel at some x and ycoordinate
+  oled.drawPixel(11, 31, SSD1306_WHITE);   // Turn on a pixel at some x and ycoordinate
+  oled.drawPixel(12, 32, SSD1306_WHITE);   // Turn on a pixel at some x and ycoordinate
+
+  oled.setTextSize(1);        // Initialize the font size before we print a text
+  oled.setTextColor(WHITE);   // Set the color of the text to white
+  oled.setCursor(0, 0);       // Set the cursor at some x and y coordinate
+  oled.print("Hello World!"); // Print hello world on the said coordinate with the said font color and size
+
+  oled.display();   // Finally, whatever we written above, we put it on display
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
