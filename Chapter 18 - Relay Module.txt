@@ -1,0 +1,19 @@
+// The pin where we attached the relay module.
+const int relayPin = 2;
+
+void setup() {
+  pinMode(relayPin, OUTPUT);
+}
+
+// Attempt to supply power to the motor pin to make the DC motor
+// rotate every after 1 second
+void loop() {
+  // Turn on the relay module
+  digitalWrite(relayPin, HIGH);
+  delay(1000);
+
+  // Turn off the relay module
+  digitalWrite(relayPin, LOW);
+  delay(1000);
+}
+
