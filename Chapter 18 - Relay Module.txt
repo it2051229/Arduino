@@ -8,11 +8,11 @@ void setup() {
 // Attempt to supply power to the motor pin to make the DC motor
 // rotate every after 1 second
 void loop() {
-  // Turn on the relay module
+  // Switch and flow power from COM to the NO (Normally Open) slot
   digitalWrite(relayPin, HIGH);
   delay(1000);
 
-  // Turn off the relay module
+  // Switch and flow power from COM to the NOC (Normally Closed) slot
   digitalWrite(relayPin, LOW);
   delay(1000);
 }
