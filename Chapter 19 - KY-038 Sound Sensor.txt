@@ -1,0 +1,40 @@
+// The pin where we attached the DO of the sound sensor
+const int digitalOutputPin = 2;
+
+// The pin where we attached the AO of the sound sensor
+const int analogOutputPin = A0;
+
+// Variable to keep track the time the last sound was detected
+unsigned long lastSoundEvent = 0;
+
+// Initilaize the arduino board
+void setup() {
+  // Tell arduino that pinhole number 2 is where we retrieve 
+  // data if the sound sensor detected sound
+  pinMode(digitalOutputPin, INPUT);
+
+  // Tell Arduino to get ready to exchange messages with the Serial Monitor
+  // at a data rate of 9600 bits per second.
+  Serial.begin(9600);
+}
+
+// Code to retrieve digital and analog data from the sound sensor
+void loop() {
+  // Capture digital and analog data
+  int digitalData = digitalRead(digitalOutputPin);
+  int analogData = analogRead(analogOutputPin);
+
+  // If a sound has a been detected, then put it on display
+  if(digitalData == LOW) {
+    // We'll use a 25 millisecond time difference to allow the sensor
+    // to process the captured data
+    if(millis() - lastSoundEvent > 25) {
+      Serial.print("Sound detected | ");
+      Serial.print("Analog Value: ");
+      Serial.println(analogData);
+    }
+
+    // Log the time of the last sound event
+    lastSoundEvent = millis();
+  }
+}
