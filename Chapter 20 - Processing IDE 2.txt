@@ -1,0 +1,44 @@
+import processing.serial.*;
+
+final int CIRCLE_SIZE = 50;    // Initialize the width and height of our circle
+final int CIRCLE_SPEED = 10;   // Initialize how fast our circle move
+
+int circleX = 500 / 2;  // Set the circle to be horizontally centered on the screen
+int circleY = 500 / 2;  // Set the circle to be vertically centered on the screen
+
+Serial port;  // Object to retrieve data from Arduino
+
+// Set up our program before any draw happens
+void setup() {
+  port = new Serial(this, "COM5", 5000);   // Connect to Arduino's Serial connection  
+  size(500, 500);  // Set the screen to 500x500 pixels
+  circle(circleX, circleY, CIRCLE_SIZE); // Draw a circle
+}
+
+// Code to repeatedly draw a shape 
+void draw() {
+  // Check if there's data we can retrieve from arduino...
+  if(port.available() > 0) {
+    try {
+      String arduinoData = port.readStringUntil('\n').trim(); // Retrieve the data from arduino
+      String[] coordinates = arduinoData.split(",");          // Split the data so we can extract the X and Y coordinate
+      
+      int x = Integer.parseInt(coordinates[0]);
+      int y = Integer.parseInt(coordinates[1]);
+            
+      // Move the circle based on the extracted X and Y coordinate
+      if(x <= 100)
+        circleX -= CIRCLE_SPEED;
+      else if(x >= 900)
+        circleX += CIRCLE_SPEED;
+        
+      if(y <= 100)
+        circleY -= CIRCLE_SPEED;
+      else if(y >= 900)
+        circleY += CIRCLE_SPEED;
+      
+      background(255);                         // Erase previous drawing    
+      circle(circleX, circleY, CIRCLE_SIZE);   // Draw the circle
+    } catch(Exception e) {}
+  }
+}

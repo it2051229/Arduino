@@ -1,0 +1,32 @@
+// This is the pinhole number where we connected
+// the joystick's switch button pin
+const int swPin = 8;
+
+// Initialize the settings of our Arduino board
+void setup() {
+  // Tell arduino that pinhole number 8 is where we retrieve input signal
+  // from the switch button
+  pinMode(swPin, INPUT);
+  
+  // Send a signal to the switch button of the joystick this means a value '1' in
+  // the serial monitor means the switch button is not pressed
+  digitalWrite(swPin, HIGH);
+
+  Serial.begin(5000);
+}
+
+// Code to repeatedly check the state of the joystick
+// and print it in the form "x,y"
+void loop() {
+  // Print out the reading for the X-axis
+  Serial.print(analogRead(A0));
+
+  // Print a comma separator
+  Serial.print(",");
+  
+  // Read and print the reading for the Y-axis
+  Serial.println(analogRead(A1));
+
+  // Pause for 100 milliseconds and repeat above process...
+  delay(50);
+}
